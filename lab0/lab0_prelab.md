@@ -30,7 +30,7 @@ None.
 
 2. Test Harness
 
- - FLEFT_BUMP_MASK: Outputs and checks the battery level of the roach
+ - FLEFT_BUMP_MASK: Outputs and checks the current voltage level of the battery.
 
  - FRIGHT_BUMP_MASK: Checks the roach's light sensors.
 
@@ -41,29 +41,71 @@ None.
 3. Psuedocode for additional test harness:
 
 ```c
-switch(controller_event):
+// Note: Keyboard presses can be masked together allowing for various input recognition and complex movement recognition (i.e. pivot turn = )
 
-    case (forward):
-        Check both front tires active to go forward.
-
-    case (backward):
-
-    case (pivot_turn):
-
-    case (final_turn):
+void Motor_Test(void) {
+    switch(keyboard_input) {
+        case (w):
+            // Move the roach forward
+            break;
+        case (a):
+            // Move the roach to the left 
+            break;
+        case (s):
+            // Move the roach backwards
+            break;
+        case (d):
+            // Move the roach to the right
+            break;
+        case (q):
+            // Stop the test
+            return;
+    }
+}
 ```
 
 # Part 5 - Event Detection
 
-1. Create a pseudocode prototype of your event checkers for the bump sensors and the light sensor.
+1. Pseudocode prototype of event checkers for the bump sensors and the light sensor.
+
+```c
+#define deviation 10
+#define BUMP_SENSOR_THRESH 175
+
+#define LOW_THRESH  BUMP_SESONR_THRESH - 10 
+#define HIGH_THRESH BUMP_SESONR_THRESH + 10 
+
+void Bump_Sensor_Test(int prev_roach_bumper) {
+    int curr_roach_bumper = Roach_ReadBumpers();
+    int roach_bumper = 
+
+    switch (roach_bumper) {
+        case(FLEFT_BUMP_MASK):
+            // Outputs and checks the current voltage level of the battery.
+        case(FRIGHT_BUMP_MASK):
+            // Checks the roach's light sensors.
+        case(RLEFT_BUMP_MASK):
+            // Cheks the left motor 
+        case(RRIGHT_BUMP_MASK):
+            // Cheks the right motor 
+        default:
+            break;
+    }
+}
+```
 
 2. Include a description of the modifications to ES Configure.h so that the test harness will run your event checkers.
 
 # Part 6 - Better Event Detection
 
-1. Create a pseudocode prototype of your “better” event checkers for the bump sensors and the light sensor with debounce and hysteresis bounds. 
+1. Pseudocode prototype for “better” event checkers for the bump sensors and the light sensor with debounce and hysteresis bounds. 
+
+```c
+
+```
 
 2. Include a description of the modifications to ES Configure.h so that the test harness will run your event checkers.
+
 
 # Part 7 - Finite State Machine (FSM)
 
