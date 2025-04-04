@@ -131,7 +131,7 @@ int Check_Light_Events(int prev_light_state) {
 }
 ```
 
-2. Include a description of the modifications to ES Configure.h so that the test harness will run your event checkers.
+2. Include a description of the modifications to ES_Configure.h so that the test harness will run your event checkers.
 
 In the ES_Configure.h file there is an enum ES_EventTyp_t and an array called EventNames. To include the new test harnesses the BUMP_SENSOR_TEST and LIGHT_SENSOR_TEST must be added to the objects. They should each be included as enum in the enum and a str for the array.
 
@@ -148,13 +148,13 @@ Additionally, prototypes for the functions must be included in the appropriate s
 #define BUMP_SENSOR_HIGH_THRESH 210
 
 // Time Variables 
-// (Note: Timer will be initialized by the function calling it)
-int time;       // (in ms)
-#define CLK 100 // (in ms)
+// (Note: TIMER will be initialized by the function calling it)
+int TIMER;          // (in ms)
+#define CLK_CYCLE 5 // 5 ms or 200 Hz cyles
 
 int Check_Bump_Events(int prev_bump_state) {
     // Verify we have waited a significant amount of time before
-    if (TIMER < 100) {
+    if (TIMER < CLK_CYCLE) {
         printf("Not enough time has passed since the last check.\n");
         return prev_bump_state;
     }
@@ -163,10 +163,7 @@ int Check_Bump_Events(int prev_bump_state) {
     
     // Detect an event in the bump
     if (curr_bump_state != prev_bump_state) {
-        // Compare both the curr and prev bump state and return a new bump
-        int new_bumps = compare(curr_bump_state, prev_bump_state);
-        
-        switch (new_bumps) {
+        switch (curr_bump_state) {
             case FLEFT_BUMP_MASK:
                 printf("Front Left Bumper hit!\n");
                 // Back up and turn right
@@ -183,12 +180,9 @@ int Check_Bump_Events(int prev_bump_state) {
                 printf("Rear Right Bumper hit!\n");
                 // Pivot left
                 break;
-            // Multiple sensors or no sensors
             default:
-                if (new_bumps > 0) {
-                    printf("Multiple bumpers hit: %d\n", new_bumps);
-                    // Take some action
-                }
+                printf("Multiple bumpers hit: %d\n", new_bumps);
+                // Take some action
                 break;
         }
     }
@@ -198,14 +192,19 @@ int Check_Bump_Events(int prev_bump_state) {
     
     return curr_bump_state;
 }
-```
-```c
+    
 // Light Sensor Thresholds
 #define LIGHT_SENSOR_THRESH 200
 #define LIGHT_SENSOR_LOW_THRESH 190
 #define LIGHT_SENSOR_HIGH_THRESH 210
 
 int Check_Light_Events(int prev_light_state) {
+    // Verify we have waited a significant amount of time
+    if (TIMER < CLK_CYCLE) {
+        printf("Not enough time has passed since the last check.\n");
+        return prev_light_state;
+    }
+
     int light_reading = Roach_ReadLightSensor();
 
     int curr_light_state = (light_reading > LIGHT_SENSOR_THRESH) ? 1 : 0;
@@ -227,13 +226,24 @@ int Check_Light_Events(int prev_light_state) {
         printf("No transition");
         // No Transition
     }
+
+
+    // Reset the timer
+    TIMER = 0;
     
     return curr_light_state;
 }
 ```
 
-2. Description of the modifications to ES Configure.h so that the test harness will run the new event checkers.
+2. Description of the modifications to ES_Configure.h so that the test harness will run the new event checkers.
 
+In addition to the changes from part 5, there is a section in the ES_Configure.h for timers. Based on the documentation the timers should be added as such, one per function. Above the psuedocode defines the timer as set whenever the respective event function is called for the first time for simplicity. In actuality, the ES_Config timers should be used to properly time the various event-checkers. 
+
+
+```c
+#define TIMER0_RESP_FUNC ((Check_Bump_Event)0)
+#define TIMER1_RESP_FUNC ((Check_Light_Event)0)
+```
 
 # Part 7 - Finite State Machine (FSM)
 
