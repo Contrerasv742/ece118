@@ -1,0 +1,82 @@
+{
+    "text-color": "#4c4f69",
+    "background-color": "#eff1f5",
+    "line-number-color": "#8c8fa1",
+    "line-number-background-color": "#eff1f5",
+    "text-styles": {
+        "Normal": {
+            "text-color": "#4c4f69"
+        },
+        "Keyword": {
+            "text-color": "#8839ef",
+            "bold": true
+        },
+        "Function": {
+            "text-color": "#1e66f5"
+        },
+        "Variable": {
+            "text-color": "#ea76cb"
+        },
+        "ControlFlow": {
+            "text-color": "#d20f39",
+            "bold": true
+        },
+        "Type": {
+            "text-color": "#fe640b",
+            "bold": true
+        },
+        "String": {
+            "text-color": "#40a02b"
+        },
+        "Constant": {
+            "text-color": "#fe640b"
+        },
+        "SpecialChar": {
+            "text-color": "#df8e1d"
+        },
+        "Comment": {
+            "text-color": "#8c8fa1",
+            "italic": true
+        },
+        "Operator": {
+            "text-color": "#04a5e5"
+        },
+        "Alert": {
+            "text-color": "#d20f39",
+            "background-color": "#dce0e8",
+            "bold": true
+        },
+        "Attribute": {
+            "text-color": "#df8e1d"
+        },
+        "Error": {
+            "text-color": "#d20f39",
+            "background-color": "#dce0e8",
+            "bold": true
+        },
+        "Identifier": {
+            "text-color": "#4c4f69"
+        },
+        "Information": {
+            "text-color": "#7287fd",
+            "italic": true
+        },
+        "Preprocessor": {
+            "text-color": "#fe640b"
+        },
+        "RegionMarker": {
+            "text-color": "#7287fd",
+            "background-color": "#dce0e8"
+        },
+        "SpecialString": {
+            "text-color": "#179299"
+        },
+        "VerbatimString": {
+            "text-color": "#40a02b"
+        },
+        "Warning": {
+            "text-color": "#df8e1d",
+            "bold": true
+        }
+    }
+}

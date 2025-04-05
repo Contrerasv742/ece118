@@ -1,129 +1,95 @@
 #!/bin/bash
-
-# Define directories
-DOCS_DIR="docs"
-
-# Make sure docs directory exists
-mkdir -p "$DOCS_DIR"
-
-# Define input and output files
-INPUT_FILE="$DOCS_DIR/lab0_prelab.md"
-OUTPUT_FILE="$DOCS_DIR/lab0_prelab.pdf"
-
-# Create the markdown file if it doesn't exist yet
-if [ ! -f "$INPUT_FILE" ]; then
-    cat > "$INPUT_FILE" << 'EOF'
+# Create the YAML metadata file
+cat > metadata.yaml << EOL
 ---
-title: "Lab 0 Prelab"
-author: "Victor Perez Contreras"
-date: \today
+documentclass: article
+classoption: 12pt
+geometry: margin=1in
+header-includes:
+    - \usepackage{graphicx}
+    - \usepackage{float}
+    - \usepackage{caption}
+    - \usepackage{etoolbox}
+    - \AtBeginEnvironment{figure}{\centering}
+    - \floatplacement{figure}{H}
 ---
-# Part 1 - PCB Assembly and Soldering
-1. Watch Videos
-2. The iron should be set to either 360 or 420 degrees farenheit depending on if the material is lead or lead-free respectively.
-3. The temperature has to be set accordingly as referenced above.
-4. A hot weld will lead to discoleration of the material and bad spread of material at the joint. A cold weld will be weak and have very little discoleration.
-5. Black in the weld means the heat was excessive leading to burning in the materials.
-# Part 2 - "Hello World!" on a roach
-None.
-# Part 3 - Running the Roach Test Harness
-None.
-# Part 4 - Roach Hardware Exploration
-1. Read
-2. Test Harness
- - FLEFT_BUMP_MASK: Outputs and checks the current voltage level of the battery.
- - FRIGHT_BUMP_MASK: Checks the roach's light sensors.
- - RLEFT_BUMP_MASK: Cheks the left motor 
- - RRIGHT_BUMP_MASK: Cheks the right motor 
-3. Psuedocode for additional test harness:
-```c
-// Note: Keyboard presses can be masked together allowing for various input recognition and complex movement recognition (i.e. pivot turn = )
-void Motor_Test(void) {
-    switch(keyboard_input) {
-        case (w):
-            // Move the roach forward
-            break;
-        case (a):
-            // Move the roach to the left 
-            break;
-        case (s):
-            // Move the roach backwards
-            break;
-        case (d):
-            // Move the roach to the right
-            break;
-        case (q):
-            // Stop the test
-            return;
+EOL
+
+# Create a Catppuccin-themed syntax highlighting file
+cat > catppuccin.theme << EOL
+{
+    "text-color": "#cdd6f4",
+    "background-color": "#1e1e2e",
+    "line-number-color": "#6c7086",
+    "line-number-background-color": "#1e1e2e",
+    "text-styles": {
+        "Normal": {
+            "text-color": "#cdd6f4"
+        },
+        "Keyword": {
+            "text-color": "#cba6f7",
+            "bold": true
+        },
+        "Function": {
+            "text-color": "#89b4fa"
+        },
+        "Variable": {
+            "text-color": "#f5c2e7"
+        },
+        "ControlFlow": {
+            "text-color": "#f38ba8",
+            "bold": true
+        },
+        "Type": {
+            "text-color": "#fab387",
+            "bold": true
+        },
+        "String": {
+            "text-color": "#a6e3a1"
+        },
+        "Constant": {
+            "text-color": "#fab387"
+        },
+        "SpecialChar": {
+            "text-color": "#f9e2af"
+        },
+        "Comment": {
+            "text-color": "#7f849c",
+            "italic": true
+        },
+        "Operator": {
+            "text-color": "#89dceb"
+        },
+        "Alert": {
+            "text-color": "#f38ba8",
+            "background-color": "#313244",
+            "bold": true
+        }
     }
 }
-```
-# Part 5 - Event Detection
-1. Pseudocode prototype of event checkers for the bump sensors and the light sensor.
-```c
-#define deviation 10
-#define BUMP_SENSOR_THRESH 175
-#define LOW_THRESH  BUMP_SESONR_THRESH - 10 
-#define HIGH_THRESH BUMP_SESONR_THRESH + 10 
-void Bump_Sensor_Test(int prev_roach_bumper) {
-    int curr_roach_bumper = Roach_ReadBumpers();
-    int roach_bumper = 
-    switch (roach_bumper) {
-        case(FLEFT_BUMP_MASK):
-            // Outputs and checks the current voltage level of the battery.
-        case(FRIGHT_BUMP_MASK):
-            // Checks the roach's light sensors.
-        case(RLEFT_BUMP_MASK):
-            // Cheks the left motor 
-        case(RRIGHT_BUMP_MASK):
-            // Cheks the right motor 
-        default:
-            break;
-    }
-}
-```
-2. Include a description of the modifications to ES Configure.h so that the test harness will run your event checkers.
-# Part 6 - Better Event Detection
-1. Pseudocode prototype for "better" event checkers for the bump sensors and the light sensor with debounce and hysteresis bounds. 
-```c
-```
-2. Include a description of the modifications to ES Configure.h so that the test harness will run your event checkers.
-# Part 7 - Finite State Machine (FSM)
-1. Spend time to discuss your state machine with your partner. A well-named and labeled state machine diagram will save you hours of lab time. Test it out with your partner by imagining events and inputs and seeing what happens—before you code.
-2. Create a good drawing of your FSM with all states and transitions labeled. A neat hand drawing or a program like Draw.io should work.
-3. Create a list of the helper functions you think you will need, with a brief explanation of what they do (refer to Roach.h for examples).
-# Part 8 - Hierarchial State Machine (HSM)
-1. Spend time to discuss your HSM4 with your partner. A well-named and labeled state machine diagram will save you hours of lab time. Test it out with your partner by imagining events and inputs and seeing what happens—before you code.
-2. Create a good drawing of your HSM with all states (including sub-states) and transitions labeled. A neat hand drawing or a program like Draw.io should work
-EOF
-    echo "Created Markdown file at $INPUT_FILE"
-fi
+EOL
 
-# Run pandoc with proper formatting options
-pandoc "$INPUT_FILE" \
-    -o "$OUTPUT_FILE" \
-    --pdf-engine=xelatex \
-    --variable geometry:margin=1in \
-    --variable fontsize=11pt \
-    --variable documentclass=article \
-    --variable mainfont="DejaVu Serif" \
-    --variable monofont="DejaVu Sans Mono" \
-    --highlight-style=tango \
-    --toc \
-    --number-sections
+# Correct variable assignment syntax
+DOC="docs/prelab0.md"
+PDF="docs/prelab0.pdf"
 
-# Check if conversion was successful
-if [ $? -eq 0 ]; then
-    echo "Successfully converted $INPUT_FILE to $OUTPUT_FILE"
-    echo "PDF file created at: $OUTPUT_FILE"
-    
-    # Open the PDF (uncomment the appropriate line for your OS)
-    # For macOS:
-    # open "$OUTPUT_FILE"
-    # For Linux:
-    # xdg-open "$OUTPUT_FILE"
-    # For Windows (WSL):
-    # cmd.exe /C start "$(wslpath -w "$OUTPUT_FILE")"
-else
-    echo "Error: PDF conversion failed."
-fi
+# Run pandoc with options and Catppuccin syntax highlighting
+pandoc \
+  metadata.yaml \
+  "$DOC" \
+  -o "$PDF" \
+  --pdf-engine=pdflatex \
+  -f markdown-smart \
+  --toc \
+  --number-sections \
+  -V colorlinks=true \
+  -V linkcolor=blue \
+  -V urlcolor=blue \
+  -V toccolor=blue \
+  --standalone \
+  --highlight-style=latte.theme\
+  --resource-path=.:./images:./figures:./imgs
+
+# Clean up
+rm metadata.yaml
+rm catppuccin.theme
