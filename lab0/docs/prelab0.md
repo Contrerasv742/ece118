@@ -8,13 +8,13 @@ date: \today
 
 1. Watch Videos
 
-2. The iron should be set to either 360 or 420 degrees farenheit depending on if the material is lead or lead-free respectively.
+2. The iron should be set to around 340 or 400 degrees Fahrenheit depending on if the material is lead or lead-free respectively.
 
-3. The temperature has to be set accordingly as referenced above.
+3. For Lead solder the temperature should be around 180$\circ C$. For lead-free solder the temperature should be around 420$\circ C$.
 
-4. A hot weld will lead to discoleration of the material and bad spread of material at the joint. A cold weld will be weak and have very little discoleration.
+4. A hot weld will lead to discoloration of the material, point peaks, and overall bad spread of material at the joint. A cold weld will be weak and have very little discoloration. The aim is to be between these two exteremes to have a smooth, non-blobby soldered joint.
 
-5. Black in the weld means the heat was excessive leading to burning in the materials.
+5. Black in the weld means the heat was excessive leading to burning in the materials. Black may also indicate oxidation.
 
 # Part 2 - "Hello World!" on a roach
 
@@ -34,11 +34,11 @@ None.
 
  - FRIGHT_BUMP_MASK: Checks the roach's light sensors.
 
- - RLEFT_BUMP_MASK: Cheks the left motor 
+ - RLEFT_BUMP_MASK: Checks the left motor 
 
- - RRIGHT_BUMP_MASK: Cheks the right motor 
+ - RRIGHT_BUMP_MASK: Checks the right motor 
 
-3. Psuedocode for additional test harness:
+3. Pseudocode for additional test harness:
 
 ```c
 void Motor_Test(void) {
@@ -108,9 +108,7 @@ int Check_Bump_Events(int prev_bump_state) {
     
     return curr_bump_state;
 }
-
 ```
-
 ```c
 int Check_Light_Events(int prev_light_state) {
     int light_reading = Roach_ReadLightSensor();
@@ -139,7 +137,7 @@ Additionally, prototypes for the functions must be included in the appropriate s
 
 # Part 6 - Better Event Detection
 
-1. Pseudocode prototype for “better” event checkers for the bump sensors and the light sensor with debounce and hysteresis bounds. 
+1. Pseudocode prototype for "better" event checkers for the bump sensors and the light sensor with debounce and hysteresis bounds. 
 
 ```c
 // Bump Sensor Thresholds (Hz)
@@ -192,7 +190,9 @@ int Check_Bump_Events(int prev_bump_state) {
     
     return curr_bump_state;
 }
+```
     
+```c
 // Light Sensor Thresholds
 #define LIGHT_SENSOR_THRESH 200
 #define LIGHT_SENSOR_LOW_THRESH 190
@@ -217,10 +217,10 @@ int Check_Light_Events(int prev_light_state) {
 
     // Handle light transitions
     if (low_to_high) {
-        printf("Low to high (bright) enviroment change.");
+        printf("Low to high (bright) environment change.");
         // Action for bright environment
     } else if (high_to_low) {
-        printf("High to low (dark) enviroment change.");
+        printf("High to low (dark) environment change.");
         // Action for dark environment
     } else {
         printf("No transition");
@@ -246,7 +246,7 @@ In addition to the changes from part 5, there is a section in the ES_Configure.h
 // ...
 ```
 
-Based on the documentation the timers should be added as such, one per function that needs a timer. Above the psuedocode defines the timer as set whenever the respective event function is called for the first time for simplicity. In actuality, the ES_Config timers should be used to properly time the various event-checkers. 
+Based on the documentation the timers should be added as such, one per function that needs a timer. Above the pseudocode defines the timer as set whenever the respective event function is called for the first time for simplicity. In actuality, the ES_Config timers should be used to properly time the various event-checkers. 
 
 # Part 7 - Finite State Machine (FSM)
 
@@ -269,10 +269,10 @@ Helper Functions:
 
  - Functions for movement: Includes all the functions for specific movements: pivots, forward, left turn, etc.
 
-# Part 8 - Hierarchial State Machine (HSM)
+# Part 8 - Hierarchical State Machine (HSM)
 
 1. Discuss the HSM
 
 2. Sketch the HSM 
 
-![Hierachial State Machine for the Roach](imgs/HSM.png)
+![Hierarchical State Machine for the Roach](imgs/HSM.png)

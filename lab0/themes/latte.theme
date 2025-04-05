@@ -12,7 +12,8 @@
             "bold": true
         },
         "Function": {
-            "text-color": "#1e66f5"
+            "text-color": "#1e66f5",
+            "bold": true
         },
         "Variable": {
             "text-color": "#ea76cb"
@@ -22,6 +23,10 @@
             "bold": true
         },
         "Type": {
+            "text-color": "#fe640b",
+            "bold": true
+        },
+        "DataType": {
             "text-color": "#fe640b",
             "bold": true
         },
@@ -62,7 +67,12 @@
             "italic": true
         },
         "Preprocessor": {
-            "text-color": "#fe640b"
+            "text-color": "#fe640b",
+            "bold": true
+        },
+        "PreprocessorDirective": {
+            "text-color": "#fe640b",
+            "bold": true
         },
         "RegionMarker": {
             "text-color": "#7287fd",
@@ -76,6 +86,25 @@
         },
         "Warning": {
             "text-color": "#df8e1d",
+            "bold": true
+        },
+        "Import": {
+            "text-color": "#1e66f5"
+        },
+        "DecVal": {
+            "text-color": "#fe640b"
+        },
+        "BaseN": {
+            "text-color": "#fe640b"
+        },
+        "Float": {
+            "text-color": "#fe640b"
+        },
+        "Char": {
+            "text-color": "#40a02b"
+        },
+        "BuiltIn": {
+            "text-color": "#1e66f5",
             "bold": true
         }
     }
