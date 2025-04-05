@@ -8,9 +8,9 @@ date: \today
 
 1. Watch Videos
 
-2. The iron should be set to around 340 or 400 degrees Fahrenheit depending on if the material is lead or lead-free respectively.
+2. The iron should be set to around 340 or $400^{\circ}F$ depending on if the material is lead or lead-free respectively.
 
-3. For Lead solder the temperature should be around 180$\circ C$. For lead-free solder the temperature should be around 420$\circ C$.
+3. For Lead solder the temperature should be around $180^{\circ}C$. For lead-free solder the temperature should be around $420^{\circ}C$.
 
 4. A hot weld will lead to discoloration of the material, point peaks, and overall bad spread of material at the joint. A cold weld will be weak and have very little discoloration. The aim is to be between these two exteremes to have a smooth, non-blobby soldered joint.
 
@@ -26,7 +26,7 @@ None.
 
 # Part 4 - Roach Hardware Exploration
 
-1. Read
+1. Read the roach.c file (specifically around the #ifdef ROACH TEST section).
 
 2. Test Harness
 
@@ -76,7 +76,7 @@ int Check_Bump_Events(int prev_bump_state) {
     
     // Detect an event in the bump
     if (curr_bump_state != prev_bump_state) {
-        // Compare both the curr and prev bump state and return a new bump
+        // Compare both the curr and prev bump state and return a new_bump (MASK)
         int new_bumps = compare(curr_bump_state, prev_bump_state);
         
         switch (new_bumps) {
@@ -108,8 +108,7 @@ int Check_Bump_Events(int prev_bump_state) {
     
     return curr_bump_state;
 }
-```
-```c
+    
 int Check_Light_Events(int prev_light_state) {
     int light_reading = Roach_ReadLightSensor();
     int curr_light_state = (light_reading > LIGHT_SENSOR_THRESH) ? 1 : 0;
@@ -260,14 +259,15 @@ Based on the documentation the timers should be added as such, one per function 
 
 Helper Functions:
 
- - Hide: Roach stays still nothing is being done. Checks the bumpers and light detection.
+ - __Hide__: Roach stays still nothing is being done. Checks the bumpers and light detection.
 
- - Running: Moving forward while the light level is above threshold.
- - Bumper Avoidance: Avoid collisions while the bumpers are activated.
+ - __Running__: Moving forward while the light level is above threshold.
 
- - Event Checkers (Light and Bumper): Check for events.
+ - __Bumper__ Avoidance: Avoid collisions while the bumpers are activated.
 
- - Functions for movement: Includes all the functions for specific movements: pivots, forward, left turn, etc.
+ - __Event__ Checkers (Light and Bumper): Check for events.
+
+ - __Functions(For Movement)__: Includes all the functions for specific movements: pivots, forward, left turn, etc.
 
 # Part 8 - Hierarchical State Machine (HSM)
 

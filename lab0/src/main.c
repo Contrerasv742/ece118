@@ -1,10 +1,9 @@
-# include <roach.c>
+#include "BOARD.h"
+#include <stdio.h>
 
 int main() {
     
-    while(1) {
-
-    }
+    BOARD
 
     return 0;
 }
