@@ -237,24 +237,42 @@ int Check_Light_Events(int prev_light_state) {
 
 2. Description of the modifications to ES_Configure.h so that the test harness will run the new event checkers.
 
-In addition to the changes from part 5, there is a section in the ES_Configure.h for timers. Based on the documentation the timers should be added as such, one per function. Above the psuedocode defines the timer as set whenever the respective event function is called for the first time for simplicity. In actuality, the ES_Config timers should be used to properly time the various event-checkers. 
-
+In addition to the changes from part 5, there is a section in the ES_Configure.h for timers: 
 
 ```c
+// ...
 #define TIMER0_RESP_FUNC ((Check_Bump_Event)0)
 #define TIMER1_RESP_FUNC ((Check_Light_Event)0)
+// ...
 ```
+
+Based on the documentation the timers should be added as such, one per function that needs a timer. Above the psuedocode defines the timer as set whenever the respective event function is called for the first time for simplicity. In actuality, the ES_Config timers should be used to properly time the various event-checkers. 
 
 # Part 7 - Finite State Machine (FSM)
 
-1. Spend time to discuss your state machine with your partner. A well-named and labeled state machine diagram will save you hours of lab time. Test it out with your partner by imagining events and inputs and seeing what happens—before you code.
+1. Discuss the state machine. 
 
-2. Create a good drawing of your FSM with all states and transitions labeled. A neat hand drawing or a program like Draw.io should work.
+2. Create a good drawing of the FSM.
+
+![Finite State Machine for the Roach](imgs/FSM.png)
 
 3. Create a list of the helper functions you think you will need, with a brief explanation of what they do (refer to Roach.h for examples).
 
+Helper Functions:
+
+ - Hide: Roach stays still nothing is being done. Checks the bumpers and light detection.
+
+ - Running: Moving forward while the light level is above threshold.
+ - Bumper Avoidance: Avoid collisions while the bumpers are activated.
+
+ - Event Checkers (Light and Bumper): Check for events.
+
+ - Functions for movement: Includes all the functions for specific movements: pivots, forward, left turn, etc.
+
 # Part 8 - Hierarchial State Machine (HSM)
 
-1. Spend time to discuss your HSM4 with your partner. A well-named and labeled state machine diagram will save you hours of lab time. Test it out with your partner by imagining events and inputs and seeing what happens—before you code.
+1. Discuss the HSM
 
-2. Create a good drawing of your HSM with all states (including sub-states) and transitions labeled. A neat hand drawing or a program like Draw.io should work
+2. Sketch the HSM 
+
+![Hierachial State Machine for the Roach](imgs/HSM.png)
