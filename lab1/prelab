@@ -1,0 +1,45 @@
+#!/bin/bash
+# Create the YAML metadata file
+cat > metadata.yaml << EOL
+---
+documentclass: article
+classoption: 12pt
+geometry: margin=1in
+header-includes:
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{caption}
+  - \usepackage{etoolbox}
+  - \AtBeginEnvironment{figure}{\centering}
+  - \floatplacement{figure}{H}
+  - \usepackage{fontspec}
+  - \setmonofont{FiraCode Nerd Font Mono}
+---
+EOL
+
+# Correct variable assignment syntax
+DOC="docs/prelab0.md"
+PDF="docs/prelab0.pdf"
+THEME_DIR="themes/"
+THEME="macchiato.theme"
+
+# Run pandoc with options and Catppuccin Latte syntax highlighting
+pandoc \
+  metadata.yaml \
+  "$DOC" \
+  -o "$PDF" \
+  --pdf-engine=xelatex \
+  -f markdown-smart \
+  --toc \
+  --number-sections \
+  -V colorlinks=true \
+  -V linkcolor=blue \
+  -V urlcolor=blue \
+  -V toccolor=blue \
+  --standalone \
+  --highlight-style=$THEME_DIR$THEME \
+  --resource-path=.:./images:./figures:./imgs
+
+# Clean up
+rm metadata.yaml
+
