@@ -18,8 +18,8 @@ header-includes:
 EOL
 
 # Correct variable assignment syntax
-DOC="docs/prelab0.md"
-PDF="docs/prelab0.pdf"
+DOC="docs/prelab1.md"
+PDF="docs/prelab1.pdf"
 THEME_DIR="themes/"
 THEME="macchiato.theme"
 
