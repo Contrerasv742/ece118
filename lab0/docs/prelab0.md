@@ -130,9 +130,40 @@ int Check_Light_Events(int prev_light_state) {
 
 2. Include a description of the modifications to ES_Configure.h so that the test harness will run your event checkers.
 
-In the ES_Configure.h file there is an enum ES_EventTyp_t and an array called EventNames. To include the new test harnesses the BUMP_SENSOR_TEST and LIGHT_SENSOR_TEST must be added to the objects. They should each be included as enum in the enum and a str for the array.
+In the ES_Configure.h file there is an enum ES_EventTyp_t and an array called EventNames. To include the new test harnesses the BUMP_SENSOR_TEST and LIGHT_SENSOR_TEST must be added to the objects. They should each be included as enum in the enum and a str for the array. Such as:
 
-Additionally, prototypes for the functions must be included in the appropriate service section (1-5).
+```c
+typedef enum {
+    /* ...*/
+    /* Add new events here */
+    BUMP_SENSOR_ACTIVATED,
+    BUMP_SENSOR_DEACTIVATED,
+    LIGHT_DETECTED,
+    LIGHT_REMOVED,
+    /* ...*/
+} ES_EventTyp_t;
+
+static const char *EventNames[] = {
+    /* ... */
+    /* Add new event names here*/
+    "BUMP_SENSOR_ACTIVATED",
+    "BUMP_SENSOR_DEACTIVATED",
+    "LIGHT_DETECTED",
+    "LIGHT_REMOVED",
+    "NUMBEROFEVENTS",
+};
+```
+
+Additionally, prototypes for the functions must be included in the appropriate service section. The format for including services is:
+
+```c
+#if NUM_SERVICES > 2
+#define SERV_2_HEADER "Test<Service_Name>.h"
+#define SERV_2_INIT Test<Service_Name>Init
+#define SERV_2_RUN Test<Service_Name>Run
+#define SERV_2_QUEUE_SIZE 3
+#endif
+```
 
 # Part 6 - Better Event Detection
 
@@ -253,7 +284,7 @@ Based on the documentation the timers should be added as such, one per function 
 
 2. Create a good drawing of the FSM.
 
-![Finite State Machine for the Roach](imgs/FSM.png)
+![Finite State Machine for the Roach](imgs/FSM.jpeg)
 
 3. Create a list of the helper functions you think you will need, with a brief explanation of what they do (refer to Roach.h for examples).
 
@@ -263,11 +294,11 @@ Helper Functions:
 
  - __Running__: Moving forward while the light level is above threshold.
 
- - __Bumper__ Avoidance: Avoid collisions while the bumpers are activated.
+ - __Bumper(Avoidance)__: Avoid collisions while the bumpers are activated.
 
  - __Event__ Checkers (Light and Bumper): Check for events.
 
- - __Functions(For Movement)__: Includes all the functions for specific movements: pivots, forward, left turn, etc.
+ - __Functions(For Movement)__: Includes all the functions for specific movements: moving forward and all specific pivots (left pivot, diagonal pivot, etc.)
 
 # Part 8 - Hierarchical State Machine (HSM)
 
@@ -275,4 +306,4 @@ Helper Functions:
 
 2. Sketch the HSM 
 
-![Hierarchical State Machine for the Roach](imgs/HSM.png)
+![Hierarchical State Machine for the Roach](imgs/HSM.jpeg)
