@@ -29,7 +29,7 @@
 #include "ES_Configure.h"
 #include "TemplateEventChecker.h"
 #include "ES_Events.h"
-#include "serial.h"
+#include "Serial.h"
 #include "AD.h"
 
 /*******************************************************************************

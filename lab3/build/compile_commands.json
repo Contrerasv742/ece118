@@ -1,0 +1,22 @@
+[
+  {
+    "directory": ~/Projects/ece118/lab3
+    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -c src/app/main.c",
+    "file": "src/app/main.c"
+  },
+  {
+    "directory": ~/Projects/ece118/lab3
+    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -std=c11 -c src/app/FleeingHSM.c",
+    "file": "src/app/FleeingHSM.c"
+  },
+  {
+    "directory": ~/Projects/ece118/lab3
+    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -std=c11 -c src/app/HidingHSM.c",
+    "file": "src/app/HidingHSM.c"
+  },
+  {
+    "directory": ~/Projects/ece118/lab3
+    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -std=c11 -c src/app/HSM.c",
+    "file": "src/app/HSM.c"
+  }
+]
