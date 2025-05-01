@@ -1,29 +1,3 @@
-/*
- * File: TemplateFSM.c
- * Author: J. Edward Carryer
- * Modified: Gabriel H Elkaim
- *
- * Template file to set up a Flat State Machine to work with the Events and Services
- * Frameword (ES_Framework) on the Uno32 for the CMPE-118/L class. Note that this file
- * will need to be modified to fit your exact needs, and most of the names will have
- * to be changed to match your code.
- *
- * This is provided as an example and a good place to start.
- *
- *Generally you will just be modifying the statenames and the run function
- *However make sure you do a find and replace to convert every instance of
- *  "Template" to your current state machine's name
- * History
- * When           Who     What/Why
- * -------------- ---     --------
- * 09/13/13 15:17 ghe      added tattletail functionality and recursive calls
- * 01/15/12 11:12 jec      revisions for Gen2 framework
- * 11/07/11 11:26 jec      made the queue static
- * 10/30/11 17:59 jec      fixed references to CurrentEvent in RunTemplateSM()
- * 10/23/11 18:20 jec      began conversion from SMTemplate.c (02/20/07 rev)
- */
-
-
 /*******************************************************************************
  * MODULE #INCLUDE                                                             *
  ******************************************************************************/

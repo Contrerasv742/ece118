@@ -1,7 +1,6 @@
 /*
  * File:   pwm.c
  * Author: mdunne
- *
  * Created on November 12, 2011, 9:28 AM
  */
 
@@ -10,11 +9,6 @@
 
 #include <pwm.h>
 #include <stdio.h>
-
-
-
-
-
 
 /*******************************************************************************
  * PRIVATE #DEFINES                                                            *
