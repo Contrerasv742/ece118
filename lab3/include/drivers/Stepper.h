@@ -1,30 +1,3 @@
-/*
- * File:   Stepper.h
- * Author: Elkaim
- *
- * Software module to drive a stepper motor through a normal H-bridge in full-step drive
- * mode. The module uses TIMER3 and is capable of generated 1/2 to 20,000 steps per second.
- * The nominal port used is PORTZ and can be changed by changing the appropriate #defines
- * below.
- *
- * NOTE: Module uses TIMER3 for its interrupts. When modifying this code for your own
- *       use, note that you will need to alter the #defines for modes below, and that
- *       only one of them can be active at any one time.
- * 
- * MODES: This module uses conditional compilation to set which mode the stepper motor
- *        is operating in. The valid modes are:
- *           FULL_STEP_DRIVE
- *           HALF_STEP_DRIVE
- *           WAVE_DRIVE
- *           DRV8811_DRIVE
- *
- * STEPPER_TEST (in the .c file) conditionally compiles the test harness for the code. 
- * Make sure it is commented out for module useage.
- *
- * Created on January 2, 2012, 9:36 PM
- * Updated on October 17, 2021, 8:49PM to update drive module #defines for L298N H-bridge
- */
-
 #ifndef Stepper_H
 #define Stepper_H
 
@@ -33,11 +6,6 @@
 /*******************************************************************************
  * STEPPER MODE #DEFINES                                                       *
  ******************************************************************************/
-
-#define FULL_STEP_DRIVE
-//#define HALF_STEP_DRIVE
-//#define WAVE_DRIVE
-//#define DRV8811_DRIVE
 
 #if defined FULL_STEP_DRIVE && ( defined HALF_STEP_DRIVE || defined WAVE_DRIVE || defined DRV8811_DRIVE )
 #error "Define only one stepper drive mode at a time"
@@ -172,6 +140,45 @@ int8_t Stepper_IsStepping(void);
  * @author Gabriel Hugh Elkaim, 2012.01.28 23:21 */
 int8_t Stepper_End(void);
 
+/**
+ * @Function: WaveDrive(void)
+ * @param none
+ * @return none
+ * @remark Implements the wave drive state machine in terms of switching
+ *         the coils in the right sequence.
+ * @author [Your Name]
+ * @date [Current Date] */
+static void WaveDrive(void);
 
+/**
+ * @Function: HalfStepDrive(void)
+ * @param none
+ * @return none
+ * @remark Implements the half step drive state machine in terms of switching
+ *         the coils in the right sequence.
+ * @author [Your Name]
+ * @date [Current Date] */
+static void HalfStepDrive(void);
+
+/**
+ * @Function: DRV8811Drive(void)
+ * @param none
+ * @return none
+ * @remark Implements the control for a DRV8811 driver by generating
+ *         appropriate STEP and DIR signals.
+ * @author [Your Name]
+ * @date [Current Date] */
+static void DRV8811Drive(void);
+
+// Function prototypes for the new stepper functions
+int8_t Stepper_SetDriveMode(uint8_t mode);
+
+uint16_t Stepper_GetMaxStepRate(void);
+
+int8_t Stepper_Enable(void);
+
+int8_t Stepper_Disable(void);
+
+int8_t Stepper_Step(uint8_t direction);
 
 #endif

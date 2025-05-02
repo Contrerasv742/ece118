@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Helper Variables
-USB="/run/media/panda/59BA-8589"
+USB="/run/media/panda/SAMSUNG"
 
 # Ensure Directory Exists
 sudo mkdir -p $USB/ece118

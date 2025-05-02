@@ -1,18 +1,8 @@
-/*
- * File:   Stepper.c
- * Author: Elkaim
- *
- * Created on January 2, 2012, 9:49 PM
- */
-
 #include <Stepper.h>
 #include <stdio.h>
 #include <xc.h>
 #include <sys/attribs.h>
 //#include <peripheral/timer.h>
-
-
-
 
 /*******************************************************************************
  * PRIVATE #DEFINES                                                            *
@@ -65,7 +55,7 @@ static enum {
 } stepperState = off;
 
 static enum {
-    step_one, step_two, step_three, step_four
+    step_one, step_two, step_three, step_four,
 } coilState = step_one;
 
 /*******************************************************************************
@@ -99,8 +89,7 @@ static void FullStepDrive(void);
 /* Stepper_Init(void) initializes the stepper module to step at 100Hz and makes
  * sure that all module level variables are initialized correctly. 
  */
-int8_t Stepper_Init(void)
-{
+int8_t Stepper_Init(void) {
     uint16_t overflowPeriod;
     if (stepperState != off) {
         return ERROR;
@@ -128,11 +117,6 @@ int8_t Stepper_Init(void)
     T3CONbits.TCKPS = 0b011;    // set prescaler 8:1
     TMR3 = 0; // start timer at 0
     PR3 = overflowPeriod;
-//    OpenTimer3(T3_ON | T3_SOURCE_INT | T3_PS_1_8, overflowPeriod);
-//    INTClearFlag(INT_T3);
-//    INTSetVectorPriority(INT_TIMER_3_VECTOR, 3);
-//    INTSetVectorSubPriority(INT_TIMER_3_VECTOR, 3);
-//    INTEnable(INT_T3, INT_ENABLED);
 
     IFS0bits.T3IF = 0; // clear remnant flag
     IPC3bits.T3IP = 3; // set interrupt priority
@@ -147,8 +131,7 @@ int8_t Stepper_Init(void)
  * of the TIMER3 to generate the correct interrupt and repetition number
  * to match the number of steps per second.
  */
-int8_t Stepper_SetRate(uint16_t rate)
-{
+int8_t Stepper_SetRate(uint16_t rate) {
     uint16_t overflowPeriod;
     stepsPerSecondRate = rate;
     if ((rate > TWENTY_KILOHERTZ)) {
@@ -164,16 +147,10 @@ int8_t Stepper_SetRate(uint16_t rate)
 }
 
 // Wrapper function for the module variable that tracks rate
-
-uint16_t Stepper_GetRate(void)
-{
-    return stepsPerSecondRate;
-}
+uint16_t Stepper_GetRate(void) { return stepsPerSecondRate; }
 
 // Sets the module level variable of direction and number of steps
-
-int8_t Stepper_SetSteps(uint8_t direction, int32_t steps)
-{
+int8_t Stepper_SetSteps(uint8_t direction, int32_t steps) {
     if (stepperState == off) return ERROR;
     if ((direction == FORWARD) || (direction == REVERSE)) {
         stepDir = direction;
@@ -183,13 +160,12 @@ int8_t Stepper_SetSteps(uint8_t direction, int32_t steps)
     return ERROR;
 }
 
-
 // Sets the steps and directions, and starts the stepper going
-
-int8_t Stepper_InitSteps(uint8_t direction, int32_t steps)
-{
+int8_t Stepper_InitSteps(uint8_t direction, int32_t steps) {
     int8_t result = ERROR;
-    if ((stepperState == off) || (steps == 0)) return ERROR;
+    if ((stepperState == off) || (steps == 0)) { 
+        return ERROR;
+    }
     result = Stepper_SetSteps(direction, steps);
     if (result == ERROR) {
         return result;
@@ -199,9 +175,7 @@ int8_t Stepper_InitSteps(uint8_t direction, int32_t steps)
 }
 
 // Sets the enum for the stepper state to stepping
-
-int8_t Stepper_StartSteps(void)
-{
+int8_t Stepper_StartSteps(void) {
     if ((stepCount == 0) || (stepperState == stepping)) {
         return ERROR;
     }
@@ -211,34 +185,22 @@ int8_t Stepper_StartSteps(void)
 }
 
 // Sets the enum for the stepper state to halted
-
-int8_t Stepper_StopsSteps(void)
-{
-    if ((stepperState == off) || (stepperState == halted)) return ERROR;
+int8_t Stepper_StopsSteps(void) {
+    if ((stepperState == off) || (stepperState == halted)) {
+        return ERROR;
+    }
     stepperState = halted;
     return SUCCESS;
 }
 
 // Wrapper to return the step count
+int32_t Stepper_GetRemainingSteps(void) { return stepCount; }
 
-int32_t Stepper_GetRemainingSteps(void)
-{
-    return stepCount;
-}
+// Wrapper to return the direction
+int8_t Stepper_GetDirection(void) { return stepDir; }
 
-// wrapper to return the direction
-
-int8_t Stepper_GetDirection(void)
-{
-    return stepDir;
-}
-
-// wrapper function to check state
-
-int8_t Stepper_IsStepping(void)
-{
-    return (stepperState == stepping);
-}
+// Wrapper function to check state
+int8_t Stepper_IsStepping(void) { return (stepperState == stepping); }
 
 int8_t Stepper_End(void)
 {
@@ -296,7 +258,6 @@ uint32_t CalculateOverflowPeriod(uint16_t rate)
     return ONE_KHZ_RATE;
 }
 
-// Function to implement full step drive
 void FullStepDrive(void)
 {
     switch (coilState) {
@@ -354,23 +315,204 @@ void FullStepDrive(void)
     }
 }
 
-/****************************************************************************
- Function: Timer3IntHandler
-
- Parameters: None.
-
- Returns: None.
-
- Description
-    Implements the Stepper motor FULL STEP drive state machine.
-
- Notes
-    
-
- Author: Gabriel Hugh Elkaim, 2011.12.15 16:42
- ****************************************************************************/
-void __ISR(_TIMER_3_VECTOR) Timer3IntHandler(void)
+void WaveDrive(void)
 {
+    switch (coilState) {
+    case step_one:
+        // Only coil A forward
+        COIL_A_DIRECTION = 1;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            coilState = step_two;
+        } else {
+            coilState = step_four;
+        }
+        break;
+
+    case step_two:
+        // Only coil B forward
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 1;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            coilState = step_three;
+        } else {
+            coilState = step_one;
+        }
+        break;
+
+    case step_three:
+        // Only coil A reverse
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 1;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            coilState = step_four;
+        } else {
+            coilState = step_two;
+        }
+        break;
+
+    case step_four:
+        // Only coil B reverse
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 1;
+        if (stepDir == FORWARD) {
+            coilState = step_one;
+        } else {
+            coilState = step_three;
+        }
+        break;
+    }
+}
+
+void HalfStepDrive(void) {
+    static enum {
+        half_step_one, half_step_two, half_step_three, half_step_four,
+        half_step_five, half_step_six, half_step_seven, half_step_eight
+    } halfStepState = half_step_one;
+    
+    switch (halfStepState) {
+    case half_step_one:
+        // Only coil A forward
+        COIL_A_DIRECTION = 1;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_two;
+        } else {
+            halfStepState = half_step_eight;
+        }
+        break;
+
+    case half_step_two:
+        // Coil A forward, coil B forward
+        COIL_A_DIRECTION = 1;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 1;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_three;
+        } else {
+            halfStepState = half_step_one;
+        }
+        break;
+
+    case half_step_three:
+        // Only coil B forward
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 1;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_four;
+        } else {
+            halfStepState = half_step_two;
+        }
+        break;
+
+    case half_step_four:
+        // Coil A reverse, coil B forward
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 1;
+        COIL_B_DIRECTION = 1;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_five;
+        } else {
+            halfStepState = half_step_three;
+        }
+        break;
+
+    case half_step_five:
+        // Only coil A reverse
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 1;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 0;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_six;
+        } else {
+            halfStepState = half_step_four;
+        }
+        break;
+
+    case half_step_six:
+        // Coil A reverse, coil B reverse
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 1;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 1;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_seven;
+        } else {
+            halfStepState = half_step_five;
+        }
+        break;
+
+    case half_step_seven:
+        // Only coil B reverse
+        COIL_A_DIRECTION = 0;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 1;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_eight;
+        } else {
+            halfStepState = half_step_six;
+        }
+        break;
+
+    case half_step_eight:
+        // Coil A forward, coil B reverse
+        COIL_A_DIRECTION = 1;
+        COIL_A_DIRECTION_INV = 0;
+        COIL_B_DIRECTION = 0;
+        COIL_B_DIRECTION_INV = 1;
+        if (stepDir == FORWARD) {
+            halfStepState = half_step_one;
+        } else {
+            halfStepState = half_step_seven;
+        }
+        break;
+    }
+}
+
+// Function to implement DRV8811 driver control (STEP/DIR interface)
+void DRV8811Drive(void) {
+    // Set direction pin based on stepDir
+    if (stepDir == FORWARD) {
+        COIL_A_DIRECTION = 1;      // Use as DIR pin
+    } else {
+        COIL_A_DIRECTION = 0;
+    }
+    
+    // Generate step pulse (active high)
+    COIL_B_DIRECTION = 1;          // Use as STEP pin
+    
+    // Short delay for pulse width (typically a few microseconds)
+    int i;
+    for (i = 0; i < 50; i++) {
+        // Busy wait for pulse duration
+        __asm("nop");
+    }
+    
+    // Complete the step pulse
+    COIL_B_DIRECTION = 0;
+
+    for (i = 0; i < 5; i++) {
+        __asm("nop");
+    }
+}
+
+void __ISR(_TIMER_3_VECTOR) Timer3IntHandler(void) {
     static uint16_t timerLoopCount = 0;
     
     timerLoopCount++;
@@ -398,14 +540,17 @@ void __ISR(_TIMER_3_VECTOR) Timer3IntHandler(void)
             TurnOnDrive();
 
 #ifdef FULL_STEP_DRIVE
-            FullStepDrive();
-#endif // FULL_STATE_DRIVE
+    FullStepDrive();
+#endif // FULL_STEP_DRIVE
 #ifdef HALF_STEP_DRIVE
-#endif // HALF_STATE_DRIVE
+    HalfStepDrive();
+#endif // HALF_STEP_DRIVE
 #ifdef WAVE_DRIVE
+    WaveDrive();
 #endif // WAVE_DRIVE
 #ifdef DRV8811_DRIVE
-#endif // DRV8811 DRIVE
+    DRV8811Drive();
+#endif // DRV8811_DRIVE
             break;
         }
     }
@@ -614,5 +759,4 @@ void main(void)
         }
     }
 }
-
 #endif

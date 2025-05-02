@@ -1,22 +1,158 @@
 [
-  {
-    "directory": ~/Projects/ece118/lab3
-    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -c src/app/main.c",
-    "file": "src/app/main.c"
-  },
-  {
-    "directory": ~/Projects/ece118/lab3
-    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -std=c11 -c src/app/FleeingHSM.c",
-    "file": "src/app/FleeingHSM.c"
-  },
-  {
-    "directory": ~/Projects/ece118/lab3
-    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -std=c11 -c src/app/HidingHSM.c",
-    "file": "src/app/HidingHSM.c"
-  },
-  {
-    "directory": ~/Projects/ece118/lab3
-    "command": "gcc -I./include -I./include/app -I./include/drivers -I./include/events -I./include/framework -std=c11 -c src/app/HSM.c",
-    "file": "src/app/HSM.c"
-  }
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/TemplateFSM.c.o -c /home/panda/Projects/ece118/lab3/src/app/TemplateFSM.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/app/TemplateFSM.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/TemplateFSM.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part1.c.o -c /home/panda/Projects/ece118/lab3/src/app/part1.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/app/part1.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part1.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part2.c.o -c /home/panda/Projects/ece118/lab3/src/app/part2.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/app/part2.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part2.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part4.c.o -c /home/panda/Projects/ece118/lab3/src/app/part4.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/app/part4.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part4.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part5.c.o -c /home/panda/Projects/ece118/lab3/src/app/part5.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/app/part5.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part5.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part6.c.o -c /home/panda/Projects/ece118/lab3/src/app/part6.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/app/part6.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/app/part6.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/AD.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/AD.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/AD.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/AD.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/BOARD.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/BOARD.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/BOARD.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/BOARD.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/IO_Ports.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/IO_Ports.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/IO_Ports.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/IO_Ports.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/LED.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/LED.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/LED.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/LED.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/RC_Servo.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/RC_Servo.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/RC_Servo.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/RC_Servo.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/Serial.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/Serial.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/Serial.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/Serial.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/Stepper.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/Stepper.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/Stepper.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/Stepper.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/pwm.c.o -c /home/panda/Projects/ece118/lab3/src/drivers/pwm.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/drivers/pwm.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/drivers/pwm.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/events/TemplateEventChecker.c.o -c /home/panda/Projects/ece118/lab3/src/events/TemplateEventChecker.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/events/TemplateEventChecker.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/events/TemplateEventChecker.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/events/TemplateService.c.o -c /home/panda/Projects/ece118/lab3/src/events/TemplateService.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/events/TemplateService.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/events/TemplateService.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_CheckEvents.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_CheckEvents.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_CheckEvents.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_CheckEvents.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_Framework.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_Framework.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_Framework.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_Framework.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_KeyboardInput.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_KeyboardInput.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_KeyboardInput.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_KeyboardInput.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_LookupTables.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_LookupTables.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_LookupTables.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_LookupTables.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_PostList.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_PostList.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_PostList.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_PostList.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_Queue.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_Queue.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_Queue.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_Queue.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_TattleTale.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_TattleTale.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_TattleTale.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_TattleTale.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_TimerService.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_TimerService.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_TimerService.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_TimerService.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_Timers.c.o -c /home/panda/Projects/ece118/lab3/src/framework/ES_Timers.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/ES_Timers.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/ES_Timers.c.o"
+},
+{
+  "directory": "/home/panda/Projects/ece118/lab3/build",
+  "command": "/opt/microchip/xc32/v4.35/bin/xc32-gcc  -I/home/panda/Projects/ece118/lab3/include -I/home/panda/Projects/ece118/lab3/include/app -I/home/panda/Projects/ece118/lab3/include/drivers -I/home/panda/Projects/ece118/lab3/include/events -I/home/panda/Projects/ece118/lab3/include/framework -mprocessor=32MX320F128H -O1 -ffunction-sections -fdata-sections -o CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/timers.c.o -c /home/panda/Projects/ece118/lab3/src/framework/timers.c",
+  "file": "/home/panda/Projects/ece118/lab3/src/framework/timers.c",
+  "output": "CMakeFiles/PIC32MX320F128H_Project.elf.dir/src/framework/timers.c.o"
+}
 ]

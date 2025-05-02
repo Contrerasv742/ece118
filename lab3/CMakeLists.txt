@@ -1,77 +1,89 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.24.2)
 
-# Project name
-project(PIC32MX320F128H_Project C)
+# Compiler
+cmake_minimum_required(VERSION 3.24.2)
 
-# Generate compile_commands.json for LSP support
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+# Set compiler paths directly
+set(CMAKE_C_COMPILER "/opt/microchip/xc32/v4.25/bin/xc32-gcc")
+set(CMAKE_CXX_COMPILER "/opt/microchip/xc32/v4.25/bin/xc32-g++")
 
-# Set the PIC32 microcontroller model
-set(MCU "32MX320F128H")
+# Force CMake to skip compiler checks
+set(CMAKE_C_COMPILER_FORCED TRUE)
+set(CMAKE_CXX_COMPILER_FORCED TRUE)
 
-# Find the XC32 compiler
-find_program(XC32_CC xc32-gcc)
-find_program(XC32_CXX xc32-g++)
-find_program(XC32_AR xc32-ar)
-find_program(XC32_LD xc32-ld)
-find_program(XC32_BIN2HEX xc32-bin2hex)
+# Rest of your CMake configuration
+project(Reader C)
 
-if(NOT XC32_CC)
-    message(FATAL_ERROR "XC32 compiler not found. Please install Microchip XC32 compiler")
+# Device Family Pack
+set(DFP /opt/microchip/mplabx/v6.20/packs/Microchip/PIC32MX_DFP/1.5.259)
+
+# Device
+set(PIC 32MX320F128H)
+set(OPTIMIZATION 1)
+set(USER_FLAGS -Wall)
+set(USER_DEFINITIONS )
+set(HEAP 0)
+
+# Define your project structure here
+# Adjust these paths to match your directory structure
+set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(FREERTOS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/FreeRTOS)
+
+# Create these directories if they don't exist
+file(MAKE_DIRECTORY ${SRC_DIR})
+file(MAKE_DIRECTORY ${INCLUDE_DIR})
+
+# Define your source files here
+# Example: Add all C files in the src directory
+file(GLOB PROJECT_SOURCES "${SRC_DIR}/*.c")
+
+# If you create a main.c file, add it explicitly:
+# set(PROJECT_SOURCES ${PROJECT_SOURCES} ${SRC_DIR}/main.c)
+
+# Include directories
+include_directories(${INCLUDE_DIR})
+
+# Only include FreeRTOS if you're using it
+if(EXISTS "${FREERTOS_DIR}")
+    include_directories(${FREERTOS_DIR}/Source/include)
+    include_directories(${FREERTOS_DIR}/Source/portable/MPLAB/PIC32MZ)
+    add_subdirectory(${FREERTOS_DIR})
 endif()
 
-# Set compiler and linker flags
-set(CMAKE_C_COMPILER ${XC32_CC})
-set(CMAKE_CXX_COMPILER ${XC32_CXX})
-set(CMAKE_AR ${XC32_AR})
-set(CMAKE_LINKER ${XC32_LD})
-
-# Set processor-specific flags
-set(CPU_FLAGS "-mprocessor=${MCU}")
-
-# Common compiler flags
-set(COMMON_FLAGS "${CPU_FLAGS} -O1 -ffunction-sections -fdata-sections")
-
-# Set C flags
-set(CMAKE_C_FLAGS "${COMMON_FLAGS}")
-set(CMAKE_C_FLAGS_DEBUG "${COMMON_FLAGS} -g -DDEBUG")
-set(CMAKE_C_FLAGS_RELEASE "${COMMON_FLAGS} -O2")
-
-# Include directories - this is the crucial part for LSP to work
-include_directories(
-    ${CMAKE_SOURCE_DIR}/include
-    ${CMAKE_SOURCE_DIR}/include/app
-    ${CMAKE_SOURCE_DIR}/include/drivers
-    ${CMAKE_SOURCE_DIR}/include/events
-    ${CMAKE_SOURCE_DIR}/include/framework
-)
-
-# Add source files by directories
-file(GLOB APP_SOURCES "src/app/*.c")
-file(GLOB DRIVER_SOURCES "src/drivers/*.c") 
-file(GLOB EVENTS_SOURCES "src/events/*.c")
-file(GLOB FRAMEWORK_SOURCES "src/framework/*.c")
-
 # Create executable
-add_executable(${PROJECT_NAME}.elf 
-    ${APP_SOURCES}
-    ${DRIVER_SOURCES}
-    ${EVENTS_SOURCES}
-    ${FRAMEWORK_SOURCES}
+add_executable(${PROJECT_NAME}.elf ${PROJECT_SOURCES})
+
+# Link FreeRTOS only if it exists
+if(EXISTS "${FREERTOS_DIR}")
+    target_link_libraries(${PROJECT_NAME}.elf FreeRTOS)
+endif()
+
+# Compiler flags and options
+set(MPROCESSOR -mprocessor=${PIC})
+set(MOPTIMIZATION -O${OPTIMIZATION})
+set(DEFINES ${USER_DEFINITIONS})
+set(SYM_HEAP --defsym=_min_heap_size=${HEAP})
+set(SYM_BUILD --defsym=__MPLAB_BUILD=1)
+set(LINKER_OPTS --gc-sections,--no-code-in-dinit,--no-dinit-in-serial-mem)
+set(LINKER_MAP -Map=${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.map)
+set(MEMORY_FILE --memorysummary,${CMAKE_CURRENT_BINARY_DIR}/memoryfile.xml)
+set(XC32_LINK_FLAGS
+    ${SYM_HEAP},${SYM_BUILD},${LINKER_OPTS},${LINKER_MAP},${MEMORY_FILE}
 )
 
-# Generate HEX file
-add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
-    COMMAND ${XC32_BIN2HEX} $<TARGET_FILE:${PROJECT_NAME}.elf>
-    COMMENT "Creating HEX file"
+# HEX file build command
+add_custom_command(
+    OUTPUT ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex
+    DEPENDS ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.elf
+    COMMAND /opt/microchip/xc32/v4.21/bin/xc32-bin2hex ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.elf
 )
 
-# Custom target for flashing the device (you'll need to adjust the command)
-add_custom_target(flash
-    COMMAND pic32prog -d ${PROJECT_NAME}.hex
-    DEPENDS ${PROJECT_NAME}.elf
-    COMMENT "Flashing ${PROJECT_NAME}.hex to device"
+add_custom_target(${PROJECT_NAME}_hex ALL
+    DEPENDS ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex
 )
 
-# Set linker options
-target_link_options(${PROJECT_NAME}.elf PRIVATE ${CPU_FLAGS} -Wl,--gc-sections)
+target_compile_options(${PROJECT_NAME}.elf PUBLIC ${USER_FLAGS} ${MPROCESSOR} ${MOPTIMIZATION} -fdata-sections -ffunction-sections -no-legacy-libc -mdfp=${DFP})
+target_compile_definitions(${PROJECT_NAME}.elf PUBLIC XPRJ_default=default ${DEFINES})
+target_link_options(${PROJECT_NAME}.elf PUBLIC ${MPROCESSOR} ${MOPTIMIZATION})
+target_link_libraries(${PROJECT_NAME}.elf "-Wl,${XC32_LINK_FLAGS}")

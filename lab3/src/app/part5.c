@@ -1,22 +1,44 @@
+#include <xc.h>
 #include <BOARD.h>
 #include "IO_Ports.h"
 #include "AD.h"
 #include "LED.h"
+#include "Stepper.h"
 #include "timers.h"
-#include "StepperL298.h"
 #include <stdio.h>
-#include <xc.h>
 
 // Define constants
 #define SWITCH_PIN       PORTY09_BIT  // Direction switch input
 #define ALL_LEDS_ON      0x0F         // All LEDs in a bank
 #define STEPPER_STEPS    200          // Steps per revolution
 
-// Uncomment the desired drive mode
-#define DRIVE_MODE FULL_STEP_DRIVE
-//#define DRIVE_MODE WAVE_DRIVE
-//#define DRIVE_MODE HALF_STEP_DRIVE
+// Define drive mode constants - these should match those in stepper_extension.c
+#define FULL_STEP_MODE   0
+#define HALF_STEP_MODE   1
+#define WAVE_DRIVE_MODE  2
+#define DRV8811_MODE     3
 
+// Drive Modes
+
+#define FULL_STEP_DRIVE
+// #define HALF_STEP_DRIVE
+#define WAVE_DRIVE
+#define DRV8811_DRIVE
+
+// Select which drive mode to use based on your hardware configuration
+#ifdef FULL_STEP_DRIVE
+#define DRIVE_MODE       FULL_STEP_MODE
+#elif defined HALF_STEP_DRIVE
+#define DRIVE_MODE       HALF_STEP_MODE
+#elif defined WAVE_DRIVE
+#define DRIVE_MODE       WAVE_DRIVE_MODE
+#elif defined DRV8811_DRIVE
+#define DRIVE_MODE       DRV8811_MODE
+#else
+#define DRIVE_MODE       FULL_STEP_MODE  // Default to full step mode
+#endif
+
+#define PART5
 #ifdef PART5
 int main(void) {
     /* Initialization Section */
@@ -26,8 +48,8 @@ int main(void) {
     TIMERS_Init();
     
     // Initialize stepper motor control
-    StepperL298_Init();
-    StepperL298_SetDriveMode(DRIVE_MODE);
+    Stepper_Init();
+    Stepper_SetDriveMode(DRIVE_MODE);
     
     /* Pin Configuration */
     // 1) UNO Pot Input for controlling speed
@@ -35,36 +57,36 @@ int main(void) {
     // 2) Pins for the LEDs to display status
     LED_AddBanks(LED_BANK1 | LED_BANK2 | LED_BANK3);
     
-    // Configure direction switch input pin with pull-up
-    IO_PortsSetPortInputs(PORTY, SWITCH_PIN);
-    IO_PortsSetPortPullups(PORTY, SWITCH_PIN);
-    
-    printf("Part 5 - Stepper Motor Control using L298 H-bridge\r\n");
+    printf("Part 5 - Stepper Motor Control using H-bridge\r\n");
     
     // Variables for step timing
     uint16_t stepDelay = 100;  // Initial step delay in milliseconds
     uint16_t stepCounter = 0;
     uint32_t lastStepTime = 0;
-    uint16_t maxStepRate = StepperL298_GetMaxStepRate();
+    uint16_t maxStepRate = Stepper_GetMaxStepRate();
     
     // Enable the stepper motor
-    StepperL298_Enable();
+    Stepper_Enable();
     
+    // Main loop
     while (1) {
         // Read potentiometer and switch
         uint16_t pot_value = AD_ReadADPin(AD_PORTV5);
-        uint8_t switch_state = (IO_PortsReadPort(PORTY) & SWITCH_PIN) ? 1 : 0;
+        uint8_t switch_state = 1;  // Default to FORWARD
         
         // Map potentiometer value to step delay (faster when pot is high)
         // Minimum delay is 1000/maxStepRate ms, maximum is 100ms
-        stepDelay = 1000 / (100 + ((pot_value * (maxStepRate - 100)) / 1023));
+        uint16_t min_delay = 1000 / maxStepRate;
+        uint16_t max_delay = 100;
+        stepDelay = max_delay - ((pot_value * (max_delay - min_delay)) / 1023);
+        if (stepDelay < min_delay) stepDelay = min_delay;
         
         // Check if it's time to take a step
-        if (TIMERS_GetMilliSeconds() - lastStepTime >= stepDelay) {
-            lastStepTime = TIMERS_GetMilliSeconds();
+        if (TIMERS_GetTime() - lastStepTime >= stepDelay) {
+            lastStepTime = TIMERS_GetTime();
             
             // Take a step in the direction determined by switch
-            StepperL298_Step(switch_state);
+            Stepper_Step(switch_state);
             
             // Increment step counter
             stepCounter++;
