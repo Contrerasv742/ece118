@@ -8,15 +8,11 @@
 #include "ES_Configure.h"
 #include "ES_Framework.h"
 
-// TODO: add a section talking about the switch
-
-// Define thresholds for LED display
-#define LOW_THRESHOLD    341   // ~1/3 of 1023
-#define MEDIUM_THRESHOLD 682   // ~2/3 of 1023
-#define ALL_LEDS_ON      0x0F  // All LEDs in a bank
+// Define for all LEDs in a bank
+#define ALL_LEDS_ON      0x0F  
 
 // Define pins for L298 H-Bridge control
-#define PWM_MOTOR_PIN   PWM_PORTZ06  // This is correct as it's a valid PWM pin
+#define PWM_MOTOR_PIN   PWM_PORTZ06
 #define ENABLE_PIN      RC_PORTY07
 #define DIRECTION_PIN1  0x0100 
 #define DIRECTION_PIN2  0x0200 
@@ -70,7 +66,6 @@ int main(void) {
             printf("Direction: Counter-Clockwise\r\n");
         }
         
-        /* LED Display for speed and direction */
         // Default: All LEDs off
         LED_SetBank(LED_BANK1, 0);
         LED_SetBank(LED_BANK2, 0);  
@@ -79,28 +74,16 @@ int main(void) {
         // Calculate how many LEDs to light (0-12 LEDs for 0-3.3V)
         unsigned int num_leds = (pot_value * 12) / 1023;
         
-        if (switch_state) {
-            if (num_leds <= 4) {
-                LED_SetBank(LED_BANK1, (1 << num_leds) - 1);
-            } else if (num_leds <= 8) {
-                LED_SetBank(LED_BANK1, ALL_LEDS_ON);
-                LED_SetBank(LED_BANK2, (1 << (num_leds - 4)) - 1);
-            } else {
-                LED_SetBank(LED_BANK1, ALL_LEDS_ON);
-                LED_SetBank(LED_BANK2, ALL_LEDS_ON);
-                LED_SetBank(LED_BANK3, (1 << (num_leds - 8)) - 1);
-            }
+        /* LED Display for speed */
+        if (num_leds <= 4) {
+            LED_SetBank(LED_BANK1, (1 << num_leds) - 1);
+        } else if (num_leds <= 8) {
+            LED_SetBank(LED_BANK1, ALL_LEDS_ON);
+            LED_SetBank(LED_BANK2, (1 << (num_leds - 4)) - 1);
         } else {
-            if (num_leds <= 4) {
-                LED_SetBank(LED_BANK3, (1 << (num_leds - 8)) - 1);
-            } else if (num_leds <= 8) {
-                LED_SetBank(LED_BANK3, ALL_LEDS_ON);
-                LED_SetBank(LED_BANK2, (1 << (num_leds - 4)) - 1);
-            } else {
-                LED_SetBank(LED_BANK2, ALL_LEDS_ON);
-                LED_SetBank(LED_BANK2, ALL_LEDS_ON);
-                LED_SetBank(LED_BANK1, (1 << num_leds) - 1);
-            }
+            LED_SetBank(LED_BANK1, ALL_LEDS_ON);
+            LED_SetBank(LED_BANK2, ALL_LEDS_ON);
+            LED_SetBank(LED_BANK3, (1 << (num_leds - 8)) - 1);
         }
 
     }

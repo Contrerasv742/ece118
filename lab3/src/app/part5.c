@@ -22,8 +22,8 @@
 
 #define FULL_STEP_DRIVE
 // #define HALF_STEP_DRIVE
-#define WAVE_DRIVE
-#define DRV8811_DRIVE
+// #define WAVE_DRIVE
+// #define DRV8811_DRIVE
 
 // Select which drive mode to use based on your hardware configuration
 #ifdef FULL_STEP_DRIVE
@@ -46,8 +46,6 @@ int main(void) {
     AD_Init();
     LED_Init();
     TIMERS_Init();
-    
-    // Initialize stepper motor control
     Stepper_Init();
     Stepper_SetDriveMode(DRIVE_MODE);
     
