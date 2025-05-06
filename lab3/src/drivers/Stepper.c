@@ -539,6 +539,8 @@ void __ISR(_TIMER_3_VECTOR) Timer3IntHandler(void) {
             }
             TurnOnDrive();
 
+    DRV8811Drive();
+
 #ifdef FULL_STEP_DRIVE
     FullStepDrive();
 #endif // FULL_STEP_DRIVE
@@ -549,7 +551,6 @@ void __ISR(_TIMER_3_VECTOR) Timer3IntHandler(void) {
     WaveDrive();
 #endif // WAVE_DRIVE
 #ifdef DRV8811_DRIVE
-    DRV8811Drive();
 #endif // DRV8811_DRIVE
             break;
         }

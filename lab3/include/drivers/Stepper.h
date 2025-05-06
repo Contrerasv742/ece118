@@ -47,7 +47,6 @@
 #define COIL_B_DIRECTION LATEbits.LATE2
 #define COIL_B_DIRECTION_INV LATEbits.LATE1
 
-
 /*******************************************************************************
  * PUBLIC FUNCTION PROTOTYPES                                                  *
  ******************************************************************************/
@@ -172,16 +171,5 @@ static void HalfStepDrive(void);
  * @author [Your Name]
  * @date [Current Date] */
 static void DRV8811Drive(void);
-
-// Function prototypes for the new stepper functions
-int8_t Stepper_SetDriveMode(uint8_t mode);
-
-uint16_t Stepper_GetMaxStepRate(void);
-
-int8_t Stepper_Enable(void);
-
-int8_t Stepper_Disable(void);
-
-int8_t Stepper_Step(uint8_t direction);
 
 #endif

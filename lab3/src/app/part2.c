@@ -17,7 +17,7 @@
 // Define pins for DC motor control
 #define PWM_MOTOR_PIN    PWM_PORTZ06  // This is correct as it's a valid PWM pin
 
-// #define PART2
+#define PART2
 #ifdef PART2
 int main(void) {
     ES_Return_t ErrorType;

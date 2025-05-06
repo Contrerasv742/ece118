@@ -11,7 +11,7 @@
 #define LOW_THRESHOLD    341   // ~1/3 of 1023
 #define MEDIUM_THRESHOLD 682   // ~2/3 of 1023
 
-// #define PART1
+#define PART1
 #ifdef PART1
 void main(void) {
     ES_Return_t ErrorType;
